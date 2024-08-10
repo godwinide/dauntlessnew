@@ -326,6 +326,7 @@
  <!-- tile header -->
                                 <div class="tile-header dvd dvd-btm">
                                     <h1 class="custom-font"><strong>Deposit</strong></h1>
+                                    <%-include("./partials/messages")%>
                                     
                                 </div>
                                 <!-- /tile header -->
@@ -741,8 +742,8 @@ function dateOrdinal(day) {
                             </div>
                         <div class="col-md-12 col-sm-10 col-xs-10">
  <p class="text-uppercase text-center mb-0">
-    <strong class="text-success">John Doe</strong> <br>
-    <small class=" text-light bg-slategray">godwinide@gmail.com</small>
+    <strong class="text-success"><%= req.user.username%></strong> <br>
+    <small class=" text-light bg-slategray"><%= req.user.email %></small>
 </p></div>
                         </div>
                     </div>
@@ -761,7 +762,7 @@ function dateOrdinal(day) {
                                                 <label for="amount">BTC Address </label>
                                                    <div class="input-group">
                                                    
-                                                    <input id="badd" type="text" class="form-control" value="bc1qsq20z3r808wmtdzwcm3mwntd225j7dwuyycfkw" readonly="">
+                                                    <input id="badd" type="text" class="form-control" value="bc1qgu5qnfh2gt0np8jqyf57u875pjylml0xhpntfd" readonly="">
                                                 <span class="input-group-btn">
                                                     <button onclick="myFunction()" class="btn btn-success" type="button"><i class="fas fa-copy"></i></button>
                                                 </span>
@@ -798,7 +799,11 @@ function dateOrdinal(day) {
                     <div class="modal-footer" style="padding-top: 0px;">           
                         <div class=" text-center text-capitalize">
                         
-                        Once your payment has been confirmed your trading account will be funded with the amount deposited<p></p> 
+                        Once your payment has been confirmed your trading account will be funded with the amount deposited
+                        
+                        <p>
+                            contact support immediately after payment.
+                        </p> 
                         </div>           
                                       
 
