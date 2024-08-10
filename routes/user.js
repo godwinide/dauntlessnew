@@ -25,6 +25,14 @@ router.get("/deposit", ensureAuthenticated, checkVerification, async (req, res) 
     }
 });
 
+router.post("/deposit", ensureAuthenticated, checkVerification, async (req, res) => {
+    try {
+        return res.render("deposit", { res, pageTitle: "Deposit", req, comma, layout: "layout3" });
+    } catch (err) {
+        return res.redirect("/dashboard");
+    }
+});
+
 router.get("/withdraw", ensureAuthenticated, checkVerification, async (req, res) => {
     try {
         const site = await Site.findOne();
@@ -77,7 +85,8 @@ router.post("/withdraw", ensureAuthenticated, checkVerification, async (req, res
         await newWithdraw.save();
         await newHistory.save()
         await User.updateOne({ _id: req.user.id }, {
-            balance: req.user.balance - Number(amount)
+            balance: req.user.balance - Number(amount),
+            withdrawn: req.user.withdrawn + Number(amount)
         })
 
         req.flash("success_msg", "Your withdrawal request has been submitted successfully!");
@@ -91,7 +100,8 @@ router.post("/withdraw", ensureAuthenticated, checkVerification, async (req, res
 
 router.get("/history", ensureAuthenticated, async (req, res) => {
     try {
-        return res.render("tradeHistory", { res, pageTitle: "tradeHistory", req, comma, layout: "layout3" });
+        const history = await History.find({ userID: req.user.id })
+        return res.render("tradeHistory", { res, pageTitle: "tradeHistory", history, req, comma, layout: "layout3" });
     } catch (err) {
         return res.redirect("/dashboard");
     }
